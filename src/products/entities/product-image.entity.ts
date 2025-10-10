@@ -1,19 +1,21 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./";
-import { Optional } from "@nestjs/common";
+import { Product } from './';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 
 @Entity({ name: 'product_images' })
 export class ProductImage {
+
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column('text')
     url: string;
 
-    // @Column('text')
-    // @Optional()
-    // altText?: string;
-
-    @ManyToOne(() => Product, (product) => product.images, { onDelete: 'CASCADE' })
+    @ManyToOne(
+        () => Product,
+        ( product ) => product.images,
+        {  onDelete: 'CASCADE' }
+    )
     product: Product
+
 }

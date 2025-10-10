@@ -1,23 +1,15 @@
+version: '3'
+
 
 services:
   db:
-    image: postgres:15-alpine
-    container_name: postgres-shop
+    image: postgres:14.3
     restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}               # Usuario de la base de datos
-      POSTGRES_PASSWORD: ${DB_PASS}            # ⚠️ Cámbiala en producción
-      POSTGRES_DB: ${DB_NAME}                   # Nombre de tu base de datos
     ports:
-      - "5432:5432"  # Puerto host:contenedor
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    container_name: teslodb
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Persistencia de datos
-    networks:
-      - nest-network
-
-volumes:
-  pgdata:  # Volumen nombrado para persistir los datos
-
-networks:
-  nest-network:
-    driver: bridge
+      - ./postgres:/var/lib/postgresql/data
